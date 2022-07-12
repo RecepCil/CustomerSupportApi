@@ -1,4 +1,5 @@
 using CustomerSupportApi.Data;
+using CustomerSupportApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddSwaggerGen();
 
 // Add Data Context as Singleton
 builder.Services.AddSingleton<DataContext>(new DataContext());
+
+// Add Dependency Injections
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 var app = builder.Build();
 
