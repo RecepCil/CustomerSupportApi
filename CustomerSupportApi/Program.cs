@@ -1,11 +1,16 @@
+using CustomerSupportApi.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add Data Context as Singleton
+builder.Services.AddSingleton<DataContext>(new DataContext());
 
 var app = builder.Build();
 
