@@ -1,5 +1,7 @@
+using System.Reflection;
 using CustomerSupportApi.Data;
 using CustomerSupportApi.Services;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,15 @@ builder.Services.AddSingleton<DataContext>(new DataContext());
 
 // Add Dependency Injections
 builder.Services.AddScoped<ITicketService, TicketService>();
+
+// Add fluent validation
+builder.Services.AddControllers()
+    .AddFluentValidation(fv =>
+    {
+        fv.ImplicitlyValidateChildProperties = true;
+        fv.ImplicitlyValidateRootCollectionElements = true;
+        fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+    });
 
 var app = builder.Build();
 
